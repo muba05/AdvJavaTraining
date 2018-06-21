@@ -54,7 +54,7 @@ public class FlightBookingDetails extends HttpServlet {
 			request.setAttribute("flight", flightDetails);
 			request.getRequestDispatcher("FlightBookingResult.jsp").forward(request, response);
 		}
-			
+		Systemo.out.println("GIT");	
 	}
 
 }
