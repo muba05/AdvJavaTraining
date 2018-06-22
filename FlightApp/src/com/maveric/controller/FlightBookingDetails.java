@@ -1,6 +1,7 @@
 package com.maveric.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +31,7 @@ public class FlightBookingDetails extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 	}
 
 	/**
@@ -39,22 +40,29 @@ public class FlightBookingDetails extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		FlightBookingModel flightDetails = new FlightBookingModel();
-		flightDetails.setFlightName(request.getParameter("flightName"));
-		flightDetails.setDestination(request.getParameter("flightDestination"));
-		flightDetails.setFare(Double.valueOf(request.getParameter("flightFare")));
-		flightDetails.setNoOfSeats(Integer.valueOf(request.getParameter("flightSeat")));
-		flightDetails.setSource(request.getParameter("flightSource"));
-		flightDetails.setAircraftName(request.getParameter("flightAir"));
 		
-		FlightBean flightBean = new FlightBean();
-		boolean addedDB = flightBean.flightBooking(flightDetails);
-		if(!addedDB){
-			response.sendRedirect("https://www.google.com");
-		}else{
-			request.setAttribute("flight", flightDetails);
-			request.getRequestDispatcher("FlightBookingResult.jsp").forward(request, response);
+		if(request.getParameter("flightName") != null) {
+			flightDetails.setFlightName(request.getParameter("flightName"));
+			flightDetails.setDestination(request.getParameter("flightDestination"));
+			flightDetails.setFare(Double.valueOf(request.getParameter("flightFare")));
+			flightDetails.setNoOfSeats(Integer.valueOf(request.getParameter("flightSeat")));
+			flightDetails.setSource(request.getParameter("flightSource"));
+			flightDetails.setAircraftName(request.getParameter("flightAir"));
+			
+			FlightBean flightBean = new FlightBean();
+			boolean addedDB = flightBean.flightBooking(flightDetails);
+			System.out.println("Checking");
+			if(!addedDB){
+				response.sendRedirect("https://www.google.com");
+			}else{
+				System.out.println("Ok");
+				request.getRequestDispatcher("FlightLanding.jsp").forward(request, response);
+				System.out.println("GIT");
+			}
+		}else {
+			request.getRequestDispatcher("FlightBookingDetails.jsp").forward(request, response);
 		}
-		Systemo.out.println("GIT");	
+			
 	}
 
 }

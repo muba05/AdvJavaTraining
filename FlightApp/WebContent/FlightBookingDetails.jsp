@@ -33,6 +33,12 @@
 		
 		</table>
 	</form>	
+	
+	<br />
+	
+	<form method="post" action="FlightList">
+		<input type="submit" value="Fetch All List" />
+	</form>
 
 </body>
 </html>
